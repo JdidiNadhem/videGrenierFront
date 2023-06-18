@@ -1,39 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
+import "./LandingPage.css";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
-  const Categories = [
-    {
-      id: 1,
-      nom: "Bijoux",
-      image:"https://www.dabchy.com/assets/images/categories/cat-icon-3.png"
-    },
-    {
-      id: 2,
-      nom: "Produits de beauté",
-      image:"https://www.dabchy.com/assets/images/categories/cat-icon-6.png"
-    },
-    {
-      id: 3,
-      nom: "Vêtements",
-      image:"https://www.dabchy.com/assets/images/categories/cat-icon-1.png"
-    },
-    {
-      id: 4,
-      nom: "Sacs",
-      image:"https://www.dabchy.com/assets/images/categories/cat-icon-5.png"
-    },
-    {
-      id: 5,
-      nom: "Accessoires",
-      image:"https://www.dabchy.com/assets/images/categories/cat-icon-4.png"
-    },
-    {
-      id: 6,
-      nom: "Chaussures",
-      image:"https://www.dabchy.com/assets/images/categories/cat-icon-2.png"
-    },
-  ];
-
+  const Categories = useSelector((state) => state.categorieReducer.Categories);
+  const Products = useSelector((state) => state.produitReducer.Produits);
+  const navigate = useNavigate();
+  // console.log(Products.length);
   return (
     <main id="main">
       {/* ======= About Section ======= */}
@@ -100,24 +75,31 @@ const LandingPage = () => {
             </p>
           </div>
           <div className="row">
-            {Categories.map((el,i)=>{return <div key={i} className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-              <div className="icon-box">
-                <img src={el.image} alt="categorie"/>
-                <h4 className="title">
-                  <a href="/#">{el.nom}</a>
-                </h4>
-                {/* <p className="description">
+            {Categories.map((el, i) => {
+              return (
+                <div
+                  key={i}
+                  className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0"
+                >
+                  <div className="icon-box">
+                    <img src={el.image} alt="categorie" />
+                    <h4 className="title">
+                      <a href="/#produits">{el.nom}</a>
+                    </h4>
+                    {/* <p className="description">
                   Voluptatum deleniti atque corrupti quos dolores et quas
                   molestias excepturi
                 </p> */}
-              </div>
-            </div>})}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
       {/* End Services Section */}
       {/* ======= Portfolio Section ======= */}
-      <section id="portfolio" className="portfolio">
+      <section id="produits" className="portfolio">
         <div className="container">
           <div className="section-title">
             <h2>Produits</h2>
@@ -141,240 +123,419 @@ const LandingPage = () => {
               </ul>
             </div>
           </div>
-          <div className="row portfolio-container">
-            <div className="col-lg-4 col-md-6 portfolio-item filter-app">
-              <img
-                src="assets/img/portfolio/portfolio-1.jpg"
-                className="img-fluid"
-                alt=""
-              />
-              <div className="portfolio-info">
-                <h4>App 1</h4>
-                <p>App</p>
-                <a
-                  href="assets/img/portfolio/portfolio-1.jpg"
-                  data-gallery="portfolioGallery"
-                  className="portfolio-lightbox preview-link"
-                  title="App 1"
-                >
-                  <i className="bx bx-plus" />
-                </a>
-                <a
-                  href="portfolio-details.html"
-                  className="details-link"
-                  title="More Details"
-                >
-                  <i className="bx bx-link" />
-                </a>
+          <div className="wrapper">
+            <div className="d-md-flex align-items-md-center">
+              <div className="ml-auto d-flex align-items-center views">
+                <span className="black-label px-md-2 px-1">
+                  {Products && Products.length}
+                </span>{" "}
+                <span className="text-muted">Products</span>{" "}
               </div>
             </div>
-            <div className="col-lg-4 col-md-6 portfolio-item filter-web">
-              <img
-                src="assets/img/portfolio/portfolio-2.jpg"
-                className="img-fluid"
-                alt=""
-              />
-              <div className="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-                <a
-                  href="assets/img/portfolio/portfolio-2.jpg"
-                  data-gallery="portfolioGallery"
-                  className="portfolio-lightbox preview-link"
-                  title="Web 3"
-                >
-                  <i className="bx bx-plus" />
-                </a>
-                <a
-                  href="portfolio-details.html"
-                  className="details-link"
-                  title="More Details"
-                >
-                  <i className="bx bx-link" />
-                </a>
+            <div className="d-lg-flex align-items-lg-center pt-2">
+              <div className="form-inline d-flex align-items-center my-2 mr-lg-2 radio bg-light border">
+                {" "}
+                <label className="options">
+                  Most Popular <input type="radio" name="radio" />{" "}
+                  <span className="checkmark" />{" "}
+                </label>{" "}
+                <label className="options">
+                  Cheapest <input type="radio" name="radio" defaultChecked="" />{" "}
+                  <span className="checkmark" />{" "}
+                </label>{" "}
+              </div>
+              <div className="form-inline d-flex align-items-center my-2 checkbox bg-light border mx-lg-2">
+                {" "}
+                <label className="tick">
+                  Farm <input type="checkbox" defaultChecked="checked" />{" "}
+                  <span className="check" />{" "}
+                </label>{" "}
+                <span className="text-dark px-2 count"> 328</span>{" "}
+              </div>
+              <div className="form-inline d-flex align-items-center my-2 checkbox bg-light border mx-lg-2">
+                {" "}
+                <label className="tick">
+                  Bio <input type="checkbox" /> <span className="check" />{" "}
+                </label>{" "}
+                <span className="text-dark px-2 count"> 72</span>{" "}
+              </div>
+              <div className="form-inline d-flex align-items-center my-2 checkbox bg-light border mx-lg-2">
+                {" "}
+                <label className="tick">
+                  Czech republic <input type="checkbox" />{" "}
+                  <span className="check" />{" "}
+                </label>{" "}
+                <span className="border px-1 mx-2 mr-3 font-weight-bold count">
+                  {" "}
+                  12
+                </span>{" "}
+                <select name="country" id="country" className="bg-light">
+                  <option value="" hidden="">
+                    Country
+                  </option>
+                  <option value="India">India</option>
+                  <option value="USA">USA</option>
+                  <option value="Uk">UK</option>
+                </select>{" "}
               </div>
             </div>
-            <div className="col-lg-4 col-md-6 portfolio-item filter-app">
-              <img
-                src="assets/img/portfolio/portfolio-3.jpg"
-                className="img-fluid"
-                alt=""
-              />
-              <div className="portfolio-info">
-                <h4>App 2</h4>
-                <p>App</p>
-                <a
-                  href="assets/img/portfolio/portfolio-3.jpg"
-                  data-gallery="portfolioGallery"
-                  className="portfolio-lightbox preview-link"
-                  title="App 2"
-                >
-                  <i className="bx bx-plus" />
-                </a>
-                <a
-                  href="portfolio-details.html"
-                  className="details-link"
-                  title="More Details"
-                >
-                  <i className="bx bx-link" />
-                </a>
+            <div className="d-sm-flex align-items-sm-center pt-2 clear">
+              <div className="text-muted filter-label">Applied Filters:</div>
+              <div className="black-label font-weight-bold p-0 px-1 mx-sm-1 mx-0 my-sm-0 my-2">
+                Selected Filtre <span className=" px-1 close">×</span>{" "}
+              </div>
+              <div className="black-label font-weight-bold p-0 px-1 mx-sm-1 mx-0">
+                Selected Filtre <span className=" px-1 close">×</span>{" "}
               </div>
             </div>
-            <div className="col-lg-4 col-md-6 portfolio-item filter-card">
-              <img
-                src="assets/img/portfolio/portfolio-4.jpg"
-                className="img-fluid"
-                alt=""
-              />
-              <div className="portfolio-info">
-                <h4>Card 2</h4>
-                <p>Card</p>
-                <a
-                  href="assets/img/portfolio/portfolio-4.jpg"
-                  data-gallery="portfolioGallery"
-                  className="portfolio-lightbox preview-link"
-                  title="Card 2"
-                >
-                  <i className="bx bx-plus" />
-                </a>
-                <a
-                  href="portfolio-details.html"
-                  className="details-link"
-                  title="More Details"
-                >
-                  <i className="bx bx-link" />
-                </a>
+            <div className="filters">
+              {" "}
+              <button
+                className="btn btn-success"
+                type="button"
+                data-toggle="collapse"
+                data-target="#mobile-filter"
+                aria-expanded="true"
+                aria-controls="mobile-filter"
+              >
+                Filter
+                <span className="px-1 fas fa-filter" />
+              </button>{" "}
+            </div>
+            <div id="mobile-filter">
+              <div className="py-3">
+                <h5 className="font-weight-bold">Categories</h5>
+                <ul className="list-group">
+                  <li className="list-group-item list-group-item-action d-flex justify-content-between align-items-center category">
+                    {" "}
+                    vegetables{" "}
+                    <span className="badge badge-primary badge-pill">
+                      328
+                    </span>{" "}
+                  </li>
+                  <li className="list-group-item list-group-item-action d-flex justify-content-between align-items-center category">
+                    {" "}
+                    Fruits{" "}
+                    <span className="badge badge-primary badge-pill">
+                      112
+                    </span>{" "}
+                  </li>
+                  <li className="list-group-item list-group-item-action d-flex justify-content-between align-items-center category">
+                    {" "}
+                    Kitchen Accessories{" "}
+                    <span className="badge badge-primary badge-pill">
+                      32
+                    </span>{" "}
+                  </li>
+                  <li className="list-group-item list-group-item-action d-flex justify-content-between align-items-center category">
+                    {" "}
+                    Chefs Tips{" "}
+                    <span className="badge badge-primary badge-pill">
+                      48
+                    </span>{" "}
+                  </li>
+                </ul>
+              </div>
+              <div className="py-3">
+                <h5 className="font-weight-bold">Brands</h5>
+                <form className="brand">
+                  <div className="form-inline d-flex align-items-center py-1">
+                    {" "}
+                    <label className="tick">
+                      Royal Fields <input type="checkbox" />{" "}
+                      <span className="check" />{" "}
+                    </label>{" "}
+                  </div>
+                  <div className="form-inline d-flex align-items-center py-1">
+                    {" "}
+                    <label className="tick">
+                      Crasmas Fields <input type="checkbox" defaultChecked="" />{" "}
+                      <span className="check" />{" "}
+                    </label>{" "}
+                  </div>
+                  <div className="form-inline d-flex align-items-center py-1">
+                    {" "}
+                    <label className="tick">
+                      Vegetarisma Farm{" "}
+                      <input type="checkbox" defaultChecked="" />{" "}
+                      <span className="check" />{" "}
+                    </label>{" "}
+                  </div>
+                  <div className="form-inline d-flex align-items-center py-1">
+                    {" "}
+                    <label className="tick">
+                      Farmar Field Eve <input type="checkbox" />{" "}
+                      <span className="check" />{" "}
+                    </label>{" "}
+                  </div>
+                  <div className="form-inline d-flex align-items-center py-1">
+                    {" "}
+                    <label className="tick">
+                      True Farmar Steve <input type="checkbox" />{" "}
+                      <span className="check" />{" "}
+                    </label>{" "}
+                  </div>
+                </form>
+              </div>
+              <div className="py-3">
+                <h5 className="font-weight-bold">Rating</h5>
+                <form className="rating">
+                  <div className="form-inline d-flex align-items-center py-2">
+                    {" "}
+                    <label className="tick">
+                      <span className="fas fa-star" />{" "}
+                      <span className="fas fa-star" />{" "}
+                      <span className="fas fa-star" />{" "}
+                      <span className="fas fa-star" />{" "}
+                      <span className="fas fa-star" /> <input type="checkbox" />{" "}
+                      <span className="check" />{" "}
+                    </label>{" "}
+                  </div>
+                  <div className="form-inline d-flex align-items-center py-2">
+                    {" "}
+                    <label className="tick">
+                      {" "}
+                      <span className="fas fa-star" />{" "}
+                      <span className="fas fa-star" />{" "}
+                      <span className="fas fa-star" />{" "}
+                      <span className="fas fa-star" />{" "}
+                      <span className="far fa-star px-1 text-muted" />{" "}
+                      <input type="checkbox" /> <span className="check" />{" "}
+                    </label>{" "}
+                  </div>
+                  <div className="form-inline d-flex align-items-center py-2">
+                    {" "}
+                    <label className="tick">
+                      <span className="fas fa-star" />{" "}
+                      <span className="fas fa-star" />{" "}
+                      <span className="fas fa-star" />{" "}
+                      <span className="far fa-star px-1 text-muted" />{" "}
+                      <span className="far fa-star px-1 text-muted" />{" "}
+                      <input type="checkbox" /> <span className="check" />{" "}
+                    </label>{" "}
+                  </div>
+                  <div className="form-inline d-flex align-items-center py-2">
+                    {" "}
+                    <label className="tick">
+                      <span className="fas fa-star" />{" "}
+                      <span className="fas fa-star" />{" "}
+                      <span className="far fa-star px-1 text-muted" />{" "}
+                      <span className="far fa-star px-1 text-muted" />{" "}
+                      <span className="far fa-star px-1 text-muted" />{" "}
+                      <input type="checkbox" /> <span className="check" />{" "}
+                    </label>{" "}
+                  </div>
+                  <div className="form-inline d-flex align-items-center py-2">
+                    {" "}
+                    <label className="tick">
+                      {" "}
+                      <span className="fas fa-star" />{" "}
+                      <span className="far fa-star px-1 text-muted" />{" "}
+                      <span className="far fa-star px-1 text-muted" />{" "}
+                      <span className="far fa-star px-1 text-muted" />{" "}
+                      <span className="far fa-star px-1 text-muted" />{" "}
+                      <input type="checkbox" /> <span className="check" />{" "}
+                    </label>{" "}
+                  </div>
+                </form>
               </div>
             </div>
-            <div className="col-lg-4 col-md-6 portfolio-item filter-web">
-              <img
-                src="assets/img/portfolio/portfolio-5.jpg"
-                className="img-fluid"
-                alt=""
-              />
-              <div className="portfolio-info">
-                <h4>Web 2</h4>
-                <p>Web</p>
-                <a
-                  href="assets/img/portfolio/portfolio-5.jpg"
-                  data-gallery="portfolioGallery"
-                  className="portfolio-lightbox preview-link"
-                  title="Web 2"
-                >
-                  <i className="bx bx-plus" />
-                </a>
-                <a
-                  href="portfolio-details.html"
-                  className="details-link"
-                  title="More Details"
-                >
-                  <i className="bx bx-link" />
-                </a>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6 portfolio-item filter-app">
-              <img
-                src="assets/img/portfolio/portfolio-6.jpg"
-                className="img-fluid"
-                alt=""
-              />
-              <div className="portfolio-info">
-                <h4>App 3</h4>
-                <p>App</p>
-                <a
-                  href="assets/img/portfolio/portfolio-6.jpg"
-                  data-gallery="portfolioGallery"
-                  className="portfolio-lightbox preview-link"
-                  title="App 3"
-                >
-                  <i className="bx bx-plus" />
-                </a>
-                <a
-                  href="portfolio-details.html"
-                  className="details-link"
-                  title="More Details"
-                >
-                  <i className="bx bx-link" />
-                </a>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6 portfolio-item filter-card">
-              <img
-                src="assets/img/portfolio/portfolio-7.jpg"
-                className="img-fluid"
-                alt=""
-              />
-              <div className="portfolio-info">
-                <h4>Card 1</h4>
-                <p>Card</p>
-                <a
-                  href="assets/img/portfolio/portfolio-7.jpg"
-                  data-gallery="portfolioGallery"
-                  className="portfolio-lightbox preview-link"
-                  title="Card 1"
-                >
-                  <i className="bx bx-plus" />
-                </a>
-                <a
-                  href="portfolio-details.html"
-                  className="details-link"
-                  title="More Details"
-                >
-                  <i className="bx bx-link" />
-                </a>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6 portfolio-item filter-card">
-              <img
-                src="assets/img/portfolio/portfolio-8.jpg"
-                className="img-fluid"
-                alt=""
-              />
-              <div className="portfolio-info">
-                <h4>Card 3</h4>
-                <p>Card</p>
-                <a
-                  href="assets/img/portfolio/portfolio-8.jpg"
-                  data-gallery="portfolioGallery"
-                  className="portfolio-lightbox preview-link"
-                  title="Card 3"
-                >
-                  <i className="bx bx-plus" />
-                </a>
-                <a
-                  href="portfolio-details.html"
-                  className="details-link"
-                  title="More Details"
-                >
-                  <i className="bx bx-link" />
-                </a>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6 portfolio-item filter-web">
-              <img
-                src="assets/img/portfolio/portfolio-9.jpg"
-                className="img-fluid"
-                alt=""
-              />
-              <div className="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-                <a
-                  href="assets/img/portfolio/portfolio-9.jpg"
-                  data-gallery="portfolioGallery"
-                  className="portfolio-lightbox preview-link"
-                  title="Web 3"
-                >
-                  <i className="bx bx-plus" />
-                </a>
-                <a
-                  href="portfolio-details.html"
-                  className="details-link"
-                  title="More Details"
-                >
-                  <i className="bx bx-link" />
-                </a>
-              </div>
+            <div className="content py-md-0 py-3">
+              <section id="sidebar">
+                <div className="py-3">
+                  <h5 className="font-weight-bold">Categories</h5>
+                  <ul className="list-group">
+                    <li className="list-group-item list-group-item-action d-flex justify-content-between align-items-center category">
+                      {" "}
+                      vegetables{" "}
+                      <span className="badge badge-primary badge-pill">
+                        328
+                      </span>{" "}
+                    </li>
+                    <li className="list-group-item list-group-item-action d-flex justify-content-between align-items-center category">
+                      {" "}
+                      Fruits{" "}
+                      <span className="badge badge-primary badge-pill">
+                        112
+                      </span>{" "}
+                    </li>
+                    <li className="list-group-item list-group-item-action d-flex justify-content-between align-items-center category">
+                      {" "}
+                      Kitchen Accessories{" "}
+                      <span className="badge badge-primary badge-pill">
+                        32
+                      </span>{" "}
+                    </li>
+                    <li className="list-group-item list-group-item-action d-flex justify-content-between align-items-center category">
+                      {" "}
+                      Chefs Tips{" "}
+                      <span className="badge badge-primary badge-pill">
+                        48
+                      </span>{" "}
+                    </li>
+                  </ul>
+                </div>
+                <div className="py-3">
+                  <h5 className="font-weight-bold">Brands</h5>
+                  <form className="brand">
+                    <div className="form-inline d-flex align-items-center py-1">
+                      {" "}
+                      <label className="tick">
+                        Royal Fields <input type="checkbox" />{" "}
+                        <span className="check" />{" "}
+                      </label>{" "}
+                    </div>
+                    <div className="form-inline d-flex align-items-center py-1">
+                      {" "}
+                      <label className="tick">
+                        Crasmas Fields{" "}
+                        <input type="checkbox" defaultChecked="" />{" "}
+                        <span className="check" />{" "}
+                      </label>{" "}
+                    </div>
+                    <div className="form-inline d-flex align-items-center py-1">
+                      {" "}
+                      <label className="tick">
+                        Vegetarisma Farm{" "}
+                        <input type="checkbox" defaultChecked="" />{" "}
+                        <span className="check" />{" "}
+                      </label>{" "}
+                    </div>
+                    <div className="form-inline d-flex align-items-center py-1">
+                      {" "}
+                      <label className="tick">
+                        Farmar Field Eve <input type="checkbox" />{" "}
+                        <span className="check" />{" "}
+                      </label>{" "}
+                    </div>
+                    <div className="form-inline d-flex align-items-center py-1">
+                      {" "}
+                      <label className="tick">
+                        True Farmar Steve <input type="checkbox" />{" "}
+                        <span className="check" />{" "}
+                      </label>{" "}
+                    </div>
+                  </form>
+                </div>
+                <div className="py-3">
+                  <h5 className="font-weight-bold">Rating</h5>
+                  <form className="rating">
+                    <div className="form-inline d-flex align-items-center py-2">
+                      {" "}
+                      <label className="tick">
+                        <span className="fas fa-star" />{" "}
+                        <span className="fas fa-star" />{" "}
+                        <span className="fas fa-star" />{" "}
+                        <span className="fas fa-star" />{" "}
+                        <span className="fas fa-star" />{" "}
+                        <input type="checkbox" /> <span className="check" />{" "}
+                      </label>{" "}
+                    </div>
+                    <div className="form-inline d-flex align-items-center py-2">
+                      {" "}
+                      <label className="tick">
+                        {" "}
+                        <span className="fas fa-star" />{" "}
+                        <span className="fas fa-star" />{" "}
+                        <span className="fas fa-star" />{" "}
+                        <span className="fas fa-star" />{" "}
+                        <span className="far fa-star px-1 text-muted" />{" "}
+                        <input type="checkbox" /> <span className="check" />{" "}
+                      </label>{" "}
+                    </div>
+                    <div className="form-inline d-flex align-items-center py-2">
+                      {" "}
+                      <label className="tick">
+                        <span className="fas fa-star" />{" "}
+                        <span className="fas fa-star" />{" "}
+                        <span className="fas fa-star" />{" "}
+                        <span className="far fa-star px-1 text-muted" />{" "}
+                        <span className="far fa-star px-1 text-muted" />{" "}
+                        <input type="checkbox" /> <span className="check" />{" "}
+                      </label>{" "}
+                    </div>
+                    <div className="form-inline d-flex align-items-center py-2">
+                      {" "}
+                      <label className="tick">
+                        <span className="fas fa-star" />{" "}
+                        <span className="fas fa-star" />{" "}
+                        <span className="far fa-star px-1 text-muted" />{" "}
+                        <span className="far fa-star px-1 text-muted" />{" "}
+                        <span className="far fa-star px-1 text-muted" />{" "}
+                        <input type="checkbox" /> <span className="check" />{" "}
+                      </label>{" "}
+                    </div>
+                    <div className="form-inline d-flex align-items-center py-2">
+                      {" "}
+                      <label className="tick">
+                        {" "}
+                        <span className="fas fa-star" />{" "}
+                        <span className="far fa-star px-1 text-muted" />{" "}
+                        <span className="far fa-star px-1 text-muted" />{" "}
+                        <span className="far fa-star px-1 text-muted" />{" "}
+                        <span className="far fa-star px-1 text-muted" />{" "}
+                        <input type="checkbox" /> <span className="check" />{" "}
+                      </label>{" "}
+                    </div>
+                  </form>
+                </div>
+              </section>{" "}
+              {/* Products Section */}
+              <section id="products">
+                <div className="container py-3">
+                  <div className="row">
+                    {Products && Products.length > 0 ? (
+                      Products.map((el) => {
+                        return (
+                          <div
+                            key={el.id}
+                            className="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1"
+                          >
+                            <div className="card">
+                              <img className="card-img-top" src={el.image} />
+                              <div className="card-body">
+                                <h6 className="font-weight-bold pt-1">
+                                  {el.nom_produit}
+                                </h6>
+                                <div className="text-muted description"></div>
+                                <div className="d-flex align-items-center product">
+                                  {" "}
+                                  <span className="fas fa-star" />{" "}
+                                  <span className="fas fa-star" />{" "}
+                                  <span className="fas fa-star" />{" "}
+                                  <span className="fas fa-star" />{" "}
+                                  <span className="far fa-star" />{" "}
+                                </div>
+                                <div className="d-flex align-items-center justify-content-between pt-3">
+                                  <div className="d-flex flex-column">
+                                    <div className="h6 font-weight-bold">
+                                      {el.prix} DT
+                                    </div>
+                                  </div>
+                                  <button
+                                    className="btn btn-dark"
+                                    onClick={() => {
+                                      navigate("product_details", {
+                                        state: {
+                                          product: { el },
+                                        },
+                                      });
+                                    }}
+                                  >
+                                    Details
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <p className="w-100 text-center">Aucun produits</p>
+                    )}
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
         </div>

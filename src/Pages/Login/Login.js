@@ -15,14 +15,13 @@ const Login = () => {
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col col-xl-10">
-            <div className="card" style={{ borderRadius: "1rem" }}>
+            <div style={{ borderRadius: "1rem",border:"1px solid" }}>
               <div className="row g-0">
                 <div className="col-md-6 col-lg-5 d-none d-md-block">
                   <img
                     src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
                     alt="login form"
-                    className="img-fluid"
-                    style={{ borderRadius: "1rem 0 0 1rem" }}
+                    style={{ borderRadius: "1rem 0 0 1rem",width:"96%",height:"555px" }}
                   />
                 </div>
                 <div className="col-md-6 col-lg-7 d-flex align-items-center">

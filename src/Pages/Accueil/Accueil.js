@@ -10,10 +10,6 @@ import Banner from "../../Components/Banner/Banner";
 const Accueil = () => {
   return (
     <>
-      {/* ======= Header ======= */}
-      <Navbar />
-      {/* .navbar */}
-      {/* End Header */}
       {/* ======= Hero Section ======= */}
       <Banner />
       {/* End Hero */}
