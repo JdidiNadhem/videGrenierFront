@@ -1,7 +1,7 @@
 import React,{useState} from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { login_utilisateur, register_utilisateur } from "../../JS/Actions/utilisateur.action";
+import { register_utilisateur } from "../../JS/Actions/utilisateur.action";
 
 const Register = () => {
 
